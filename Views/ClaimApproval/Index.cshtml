@@ -1,0 +1,45 @@
+@model IEnumerable<ClaimSystemMVC.Models.ClaimModel>
+
+<h2>Pending Claims</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Claim ID</th>
+            <th>Lecturer ID</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var claim in Model)
+        {
+            <tr>
+                <td>@claim.ClaimId</td>
+                <td>@claim.LecturerId</td>
+                <td>@claim.Amount.ToString("C")</td>
+                <td>@claim.Status</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@claim.ClaimId" class="btn btn-info">Details</a>
+                    <form asp-action="Approve" asp-route-id="@claim.ClaimId" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-success">Approve</button>
+                    </form>
+                    <form asp-action="Reject" asp-route-id="@claim.ClaimId" method="post" class="d-inline">
+                        <button type="submit" class="btn btn-danger">Reject</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

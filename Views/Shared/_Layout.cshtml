@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,13 +9,14 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/POEPART2.styles.css" asp-append-version="true" />
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">POEPART2</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
@@ -23,14 +25,30 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Claim" asp-action="Create">Make a Claim</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Claim" asp-action="Create">Make a
+                                Claim</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Claim" asp-action="Status">Claim Status</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Claim" asp-action="Status">Claim
+                                Status</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Dashboard">Admin Dashboard</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Admin"
+                                asp-action="Dashboard">Admin Dashboard</a>
                         </li>
+                        @if (TempData["LoggedInUser"] != null)
+                        {
+                            <p>Welcome, @TempData["LoggedInUser"]!</p>
+                            <form asp-action="Logout" asp-controller="Account" method="post">
+                                <button type="submit">Logout</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <a asp-action="Login" asp-controller="Account">Login</a>
+                            <a asp-action="Register" asp-controller="Account">Register</a>
+                        }
+
                     </ul>
                 </div>
             </div>
@@ -45,7 +63,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - POEPART2 
+            &copy; 2024 - POEPART2
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -53,4 +71,5 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

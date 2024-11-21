@@ -1,14 +1,11 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ClaimSystemMVC.Models;
 
 namespace ClaimSystemMVC.Data
 {
-    public class ClaimStorage
+    public static class ClaimStorage
     {
-        // Temporary in-memory list to store claims
-        public static List<ClaimModel> Claims = new List<ClaimModel>();
+        // In-memory storage for claims
+        public static List<ClaimModel> Claims { get; set; } = new List<ClaimModel>();
     }
 }

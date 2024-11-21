@@ -1,0 +1,17 @@
+@model ClaimSystemMVC.Models.ClaimModel
+
+<h2>Claim Details</h2>
+
+<div class="card">
+    <div class="card-body">
+        <p><strong>Claim ID:</strong> @Model.ClaimId</p>
+        <p><strong>Lecturer ID:</strong> @Model.LecturerId</p>
+        <p><strong>Hours Worked:</strong> @Model.HoursWorked</p>
+        <p><strong>Hourly Rate:</strong> @Model.HourlyRate.ToString("C")</p>
+        <p><strong>Amount:</strong> @Model.Amount.ToString("C")</p>
+        <p><strong>Status:</strong> @Model.Status</p>
+        <p><strong>Submission Date:</strong> @Model.SubmissionDate.ToString("g")</p>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>

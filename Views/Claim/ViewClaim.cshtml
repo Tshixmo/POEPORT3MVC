@@ -13,12 +13,20 @@
         <p><strong>Submission Date:</strong> @Model.SubmissionDate.ToString("g")</p>
         <p><strong>Additional Notes:</strong></p>
         <p>@Model.AdditionalNotes</p>
+        @if (Model.Status == "Rejected")
+        {
+            <div>
+                <strong>Rejection Reason:</strong>
+                <p>@Model.RejectionReason</p>
+            </div>
+        }
 
         @if (!string.IsNullOrEmpty(Model.SupportingDocumentPath))
         {
             <p><strong>Supporting Document:</strong></p>
             <a href="@Model.SupportingDocumentPath" target="_blank">View Document</a>
         }
+
 
         <a class="btn btn-secondary" asp-action="Status">Back to Claims</a>
     </div>

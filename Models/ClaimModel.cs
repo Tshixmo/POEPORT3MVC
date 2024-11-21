@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClaimSystemMVC.Models
 {
@@ -10,11 +11,20 @@ namespace ClaimSystemMVC.Models
         public int ClaimId { get; set; }  
         public string? LecturerId { get; set; }
         public decimal Amount { get; set; }
-        public int HoursWorked { get; set; }
-        public decimal HourlyRate { get; set; }
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Hours worked must be greater than zero.")]
+        public int HoursWorked { get; set; }        
+        
+        [Required]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Hourly rate must be greater than zero.")]
+        public decimal HourlyRate { get; set; }        
         public string? Status { get; set; }
         public string? SupportingDocumentPath { get; set; }
         public string? AdditionalNotes { get; set; }
+
+        public string? RejectionReason { get; set; }
         public DateTime SubmissionDate { get; set; }
+        public DateTime? ApprovedDate { get; set; }
     }
 }
+

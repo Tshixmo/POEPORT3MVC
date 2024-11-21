@@ -1,0 +1,27 @@
+@model IEnumerable<ClaimSystemMVC.Models.ClaimModel>
+
+<h2>Processed Claims</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Claim ID</th>
+            <th>Lecturer ID</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Processed Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var claim in Model)
+        {
+            <tr>
+                <td>@claim.ClaimId</td>
+                <td>@claim.LecturerId</td>
+                <td>@claim.Amount.ToString("C")</td>
+                <td>@claim.Status</td>
+                <td>@claim.SubmissionDate.ToString("g")</td>
+            </tr>
+        }
+    </tbody>
+</table>

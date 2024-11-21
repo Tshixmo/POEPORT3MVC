@@ -84,3 +84,5 @@
 /Users/tshiamo/ClaimSystemMVC/obj/Debug/net8.0/ClaimSystemMVC.pdb
 /Users/tshiamo/ClaimSystemMVC/obj/Debug/net8.0/ClaimSystemMVC.genruntimeconfig.cache
 /Users/tshiamo/ClaimSystemMVC/obj/Debug/net8.0/ref/ClaimSystemMVC.dll
+/Users/tshiamo/ClaimSystemMVC/obj/Debug/net8.0/ClaimSystemMVC.sourcelink.json
+/Users/tshiamo/ClaimSystemMVC/bin/Debug/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll

@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using ClaimSystemMVC.Data;
-
 
 namespace ClaimSystemMVC.Controllers
 {
@@ -29,7 +23,7 @@ namespace ClaimSystemMVC.Controllers
             var claim = ClaimStorage.Claims.FirstOrDefault(c => c.ClaimId == id);
             if (claim != null)
             {
-                claim.Status = "Approved";  // Update the status to Approved
+                claim.Status = "Approved"; // Update the status to Approved
             }
             return RedirectToAction("Dashboard");
         }
@@ -41,7 +35,7 @@ namespace ClaimSystemMVC.Controllers
             var claim = ClaimStorage.Claims.FirstOrDefault(c => c.ClaimId == id);
             if (claim != null)
             {
-                claim.Status = "Rejected";  // Update the status to Rejected
+                claim.Status = "Rejected"; // Update the status to Rejected
             }
             return RedirectToAction("Dashboard");
         }

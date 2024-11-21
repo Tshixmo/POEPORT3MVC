@@ -7,9 +7,14 @@ namespace ClaimSystemMVC.Models
 {
     public class UserModel
     {
-        public int Id { get; set; }
         public string? Username { get; set; }
         public string? Password { get; set; }
-        public string? Role { get; set; }
+        public List<string> Roles { get; set; } = new List<string>();
     }
+    public static class UserStorage
+    {
+        public static List<UserModel> Users { get; set; } = new List<UserModel>();
+    }
+
+
 }
