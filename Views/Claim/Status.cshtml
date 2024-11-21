@@ -1,0 +1,52 @@
+@model IEnumerable<ClaimSystemMVC.Models.ClaimModel>
+
+<h2>Your Claims Status</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Claim ID</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Submission Date</th>
+            <th>Document</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Any())
+        {
+            foreach (var claim in Model)
+            {
+                <tr>
+                    <td>@claim.ClaimId</td>
+                    <td>@claim.Amount</td>
+                    <td>@claim.Status</td>
+                    <td>@claim.SubmissionDate.ToString("g")</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(claim.SupportingDocumentPath))
+                        {
+                            <a href="@Url.Action("DownloadDocument", "Claim", new { id = claim.ClaimId })">Download</a>
+                        }
+                        else
+                        {
+                            <span>No document available</span>
+                        }
+                    </td>
+                    <td>
+                        <!-- "View" button for each claim -->
+                        <a class="btn btn-info" asp-action="ViewClaim" asp-route-id="@claim.ClaimId">View</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">No claims submitted.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Auto-refresh page every 5 seconds -->
+<meta http-equiv="refresh" content="5">

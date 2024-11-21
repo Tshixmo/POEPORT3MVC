@@ -1,0 +1,25 @@
+@model ClaimSystemMVC.Models.ClaimModel
+
+<h2>Claim Details</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Claim ID: @Model.ClaimId</h4>
+        <p><strong>Lecturer ID:</strong> @Model.LecturerId</p>
+        <p><strong>Hours Worked:</strong> @Model.HoursWorked</p>
+        <p><strong>Hourly Rate:</strong> @Model.HourlyRate</p>
+        <p><strong>Total Amount:</strong> @Model.Amount</p>
+        <p><strong>Status:</strong> @Model.Status</p>
+        <p><strong>Submission Date:</strong> @Model.SubmissionDate.ToString("g")</p>
+        <p><strong>Additional Notes:</strong></p>
+        <p>@Model.AdditionalNotes</p>
+
+        @if (!string.IsNullOrEmpty(Model.SupportingDocumentPath))
+        {
+            <p><strong>Supporting Document:</strong></p>
+            <a href="@Model.SupportingDocumentPath" target="_blank">View Document</a>
+        }
+
+        <a class="btn btn-secondary" asp-action="Status">Back to Claims</a>
+    </div>
+</div>

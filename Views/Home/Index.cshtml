@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<h2>Welcome to the Contract Monthly Claim System</h2>
+<p>Please select whether you're a Lecturer or Admin:</p>
+
+<div class="d-flex justify-content-center">
+    <!-- Button for Lecturer -->
+    <a class="btn btn-primary btn-lg m-3" asp-controller="Claim" asp-action="Create">Lecturer</a>
+
+    <!-- Button for Admin -->
+    <a class="btn btn-secondary btn-lg m-3" asp-controller="Admin" asp-action="Dashboard">Admin</a>
+</div>

@@ -1,0 +1,30 @@
+@model ClaimSystemMVC.Models.ClaimModel
+
+<h2>Submit a Claim</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label for="HoursWorked">Hours Worked</label>
+        <input type="number" class="form-control" asp-for="HoursWorked" required />
+        <span asp-validation-for="HoursWorked" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="HourlyRate">Hourly Rate</label>
+        <input type="number" class="form-control" asp-for="HourlyRate" required />
+        <span asp-validation-for="HourlyRate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label for="AdditionalNotes">Additional Notes</label>
+        <textarea class="form-control" asp-for="AdditionalNotes" rows="4"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="SupportingDocumentPath">Upload Supporting Document</label>
+        <input type="file" class="form-control" asp-for="SupportingDocumentPath" />
+        <span asp-validation-for="SupportingDocumentPath" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Claim</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
