@@ -1,7 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using ClaimSystemMVC.Models;
-using ClaimSystemMVC.Utils;
+
 
 namespace ClaimSystemMVC.Controllers
 {
@@ -21,63 +21,65 @@ namespace ClaimSystemMVC.Controllers
         }
 
         // GET: Home/LogIn
-        public IActionResult LogIn()
+        /*public IActionResult LogIn()
         {
             return View();
         }
 
         // POST: Home/LogIn
         [HttpPost]
-        public IActionResult LogIn(LoginModel model)
+        public IActionResult LogIn(LoginModel model, string returnUrl = null)
         {
-            string username = model.Username;
-            string password = model.Password;
+            // Call the DB method to verify the login
+            int role = DB.LogUserIn(model);
 
-            int dbResult = DB.LogUserIn(model);
-            if (dbResult != 0)
+            if (role != null)
             {
-                // Get user details after login
-                var user = DB.GetUserByUsername(username); // You should create this method in your DB class to fetch user info based on username
+                // Set success message and user role
+                TempData["SuccessMessage"] = "Login successful!";
+                TempData["UserRole"] = role;
 
-                // Check the role and redirect accordingly
-                if (user.Role == "admin")
+                // Redirect user based on role or return to requested page
+                if (!string.IsNullOrEmpty(returnUrl))
                 {
-                    return RedirectToAction("Index", "AdminDashboard"); // Admin dashboard action
+                    return Redirect(returnUrl);  // Redirect to the original page the user wanted
                 }
-                else if (user.Role == "user")
+
+                if (role == 1)
                 {
-                    return RedirectToAction("Index", "LecturerDashboard"); // Lecturer dashboard action
+                    return RedirectToAction("Dashboard", "Admin");
                 }
-                else if (user.Role == "hr")
+                else if (role == 2)
                 {
-                    return RedirectToAction("Index", "HrDashboard"); // HR dashboard action
+                    return RedirectToAction("Create", "Claim");
                 }
-                else
+                else if (role == 3)
                 {
-                    TempData["ErrorMessage"] = "Unknown role. Access denied.";
-                    return RedirectToAction("LogIn"); // Stay on login page if no role is matched
+                    return RedirectToAction("GenerateReport", "HR");
                 }
             }
             else
             {
-                TempData["ErrorMessage"] = "Invalid login credentials.";
-                return RedirectToAction("LogIn"); // Stay on login page if login fails
+                // If login fails, show an error message
+                TempData["ErrorMessage"] = "Invalid username or password.";
             }
-        }
 
+            // Return to login page if authentication fails
+            return View();
+        }*/
 
         // GET: Home/Welcome
-        public IActionResult Welcome()
+        [HttpGet]
+        public IActionResult Dashboard()
         {
-            // Check if the username exists in TempData (or Session)
-            if (TempData["Username"] != null)
+            if (TempData["UserRole"] == null)
             {
-                string username = TempData["Username"].ToString();
-                return View("Welcome", model: username);
+                TempData["ErrorMessage"] = "You must log in first.";
+                return RedirectToAction("LogIn");
             }
 
-            // If no user is logged in, redirect to the login page
-            return RedirectToAction("LogIn");
+            // Proceed with showing the dashboard
+            return View();
         }
 
         // Error handling action

@@ -25,14 +25,14 @@
                     <td>@claim.Status</td>
                     <td>@claim.SubmissionDate.ToString("g")</td>
                     <td>
-                        @if (claim.SupportingDocumentPath != null && !string.IsNullOrEmpty(claim.SupportingDocumentPath.FilePath))
-{
-    <a href="@Url.Action("DownloadDocument", "Claim", new { id = claim.ClaimId })">Download</a>
-}
-else
-{
-    <span>No document available</span>
-}
+                        @if (claim.SupportingDocumentPath != null)
+    {
+        <a href="@Url.Action("DownloadDocument", "Claim", new { id = claim.ClaimId })">Download</a>
+    }
+    else
+    {
+        <span>No document available</span>
+    }
                     </td>
                     <td>
                         <!-- "View" button for each claim -->

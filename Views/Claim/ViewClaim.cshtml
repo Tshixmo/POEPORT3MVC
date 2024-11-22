@@ -13,6 +13,7 @@
         <p><strong>Submission Date:</strong> @Model.SubmissionDate.ToString("g")</p>
         <p><strong>Additional Notes:</strong></p>
         <p>@Model.AdditionalNotes</p>
+        
         @if (Model.Status == "Rejected")
         {
             <div>
@@ -21,19 +22,16 @@
             </div>
         }
 
-        @if (!string.IsNullOrEmpty(Model.SupportingDocumentPath))
-        //Check if document exists
-
+        <!-- Check if there's a supporting document -->
+        @if (Model.SupportingDocumentPath != null && !string.IsNullOrEmpty(Model.SupportingDocumentPath.FilePath))
         {
-            <form method="get" action="@Url.Action("DownloadDocument", "Claim", new { id = Model.ClaimId })">
-                <button type="submit" class="btn btn-primary">Download Document</button>
-            </form>
+            <p>Supporting Document: <a href="@Url.Content(Model.SupportingDocumentPath.FilePath)" target="_blank">Download</a></p>
         }
         else
         {
-            <p>No document attached to this claim.</p>
+            <p>No supporting document attached.</p>
         }
-        
+
         <a class="btn btn-secondary" asp-action="Status">Back to Claims</a>
     </div>
 </div>
