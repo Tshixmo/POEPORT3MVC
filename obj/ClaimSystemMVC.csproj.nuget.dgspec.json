@@ -44,6 +44,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "DocumentFormat.OpenXml": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "FreeSpire.Doc": {
+              "target": "Package",
+              "version": "[12.2.0, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.0, )"
@@ -51,6 +59,10 @@
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[9.0.0, )"
+            },
+            "Xceed.Words.NET": {
+              "target": "Package",
+              "version": "[3.0.24152.1219, )"
             }
           },
           "imports": [

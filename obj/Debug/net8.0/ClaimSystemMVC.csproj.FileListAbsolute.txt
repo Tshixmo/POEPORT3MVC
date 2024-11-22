@@ -86,3 +86,15 @@
 /Users/tshiamo/ClaimSystemMVC/obj/Debug/net8.0/ref/ClaimSystemMVC.dll
 /Users/tshiamo/ClaimSystemMVC/obj/Debug/net8.0/ClaimSystemMVC.sourcelink.json
 /Users/tshiamo/ClaimSystemMVC/bin/Debug/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/tshiamo/ClaimSystemMVC/bin/Debug/net8.0/DocumentFormat.OpenXml.dll
+/Users/tshiamo/ClaimSystemMVC/bin/Debug/net8.0/DocumentFormat.OpenXml.Framework.dll
+/Users/tshiamo/ClaimSystemMVC/bin/Debug/net8.0/Spire.Doc.dll
+/Users/tshiamo/ClaimSystemMVC/bin/Debug/net8.0/HarfBuzzSharp.dll
+/Users/tshiamo/ClaimSystemMVC/bin/Debug/net8.0/System.IO.Packaging.dll
+/Users/tshiamo/ClaimSystemMVC/bin/Debug/net8.0/Xceed.Document.NET.dll
+/Users/tshiamo/ClaimSystemMVC/bin/Debug/net8.0/Xceed.PDF.NET.dll
+/Users/tshiamo/ClaimSystemMVC/bin/Debug/net8.0/Xceed.Words.NET.dll
+/Users/tshiamo/ClaimSystemMVC/bin/Debug/net8.0/runtimes/osx/native/libHarfBuzzSharp.dylib
+/Users/tshiamo/ClaimSystemMVC/bin/Debug/net8.0/runtimes/win-arm64/native/libHarfBuzzSharp.dll
+/Users/tshiamo/ClaimSystemMVC/bin/Debug/net8.0/runtimes/win-x64/native/libHarfBuzzSharp.dll
+/Users/tshiamo/ClaimSystemMVC/bin/Debug/net8.0/runtimes/win-x86/native/libHarfBuzzSharp.dll

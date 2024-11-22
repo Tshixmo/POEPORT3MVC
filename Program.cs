@@ -6,9 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 //builder.Services.AddSingleton<ClaimStorage>(); // Register ClaimStorage as a singleton
 
-//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    //.AddDefaultTokenProviders(); // Removed database-specific identity storage
-
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

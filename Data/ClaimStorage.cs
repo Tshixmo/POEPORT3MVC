@@ -5,7 +5,7 @@ namespace ClaimSystemMVC.Data
 {
     public static class ClaimStorage
     {
-        // In-memory storage for claims
         public static List<ClaimModel> Claims { get; set; } = new List<ClaimModel>();
+        public static List<Lecturer> Lecturers { get; set; } = new List<Lecturer>(); // This should be here
     }
 }

@@ -2,15 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using ClaimSystemMVC.Models;
 
 namespace ClaimSystemMVC.Controllers
 {
     public static class ClaimStorage
     {
-        // In-memory storage for claims
+        // In-memory storage for claims and lecturers
         public static List<ClaimModel> Claims { get; set; } = new List<ClaimModel>();
+        public static List<Lecturer> Lecturers { get; set; } = new List<Lecturer>();
     }
 
     public class ClaimController : Controller
@@ -39,13 +39,23 @@ namespace ClaimSystemMVC.Controllers
 
             if (ModelState.IsValid)
             {
-                // Calculate the total amount
-                claim.Amount = CalculateClaimAmount(claim.HoursWorked, claim.HourlyRate);
+                // Check if the claim has a document attached
+                if (claim.SupportingDocumentPath == null)
+                {
+                    // Automatically reject the claim if no document is attached
+                    claim.Status = "Rejected";
+                    claim.RejectionReason = "No document attached.";
+                }
+                else
+                {
+                    // Calculate the total amount
+                    claim.Amount = CalculateClaimAmount(claim.HoursWorked, claim.HourlyRate);
+                    claim.Status = "Pending";
+                }
 
-                // Assign default values
+                // Assign default values (no lecturer identity)
                 claim.ClaimId = ClaimStorage.Claims.Count + 1;
-                claim.LecturerId = User.Identity?.Name; // Use the logged-in user's identity
-                claim.Status = "Pending";
+                claim.LecturerId = "UnknownLecturer"; // Lecturer identity removed, set a default value
                 claim.SubmissionDate = DateTime.Now;
 
                 // Store the claim in memory
@@ -69,12 +79,6 @@ namespace ClaimSystemMVC.Controllers
                 return NotFound();
             }
 
-            // Ensure the logged-in lecturer can only view their claims
-            if (claim.LecturerId != User.Identity?.Name)
-            {
-                return Unauthorized();
-            }
-
             return View(claim);
         }
 
@@ -86,18 +90,12 @@ namespace ClaimSystemMVC.Controllers
         // GET: Claim/Status (Lecturer's claim status page)
         public IActionResult Status()
         {
-            var lecturerId = User.Identity?.Name;
-
-            // Filter claims by logged-in lecturer
-            var claims = ClaimStorage.Claims
-                .Where(c => c.LecturerId == lecturerId)
-                .ToList();
-
+            // No login, using a default or fixed lecturer ID (remove logic for logged-in lecturer)
+            var claims = ClaimStorage.Claims.ToList();
             return View(claims);
         }
 
         // GET: Claim/Pending (View all pending claims)
-        [Authorize(Roles = "Coordinator,AcademicManager")]
         [HttpGet]
         public IActionResult Pending()
         {
@@ -110,7 +108,6 @@ namespace ClaimSystemMVC.Controllers
         }
 
         // GET: Claim/Review/{id} (View individual claim for review)
-        [Authorize(Roles = "Coordinator,AcademicManager")]
         [HttpGet]
         public IActionResult Review(int id)
         {
@@ -125,7 +122,6 @@ namespace ClaimSystemMVC.Controllers
         }
 
         // POST: Claim/Approve/{id} (Approve a claim)
-        [Authorize(Roles = "Coordinator,AcademicManager")]
         [HttpPost]
         public IActionResult Approve(int id)
         {
@@ -145,7 +141,6 @@ namespace ClaimSystemMVC.Controllers
         }
 
         // POST: Claim/Reject/{id} (Reject a claim)
-        [Authorize(Roles = "Coordinator,AcademicManager")]
         [HttpPost]
         public IActionResult Reject(int id, string rejectionReason)
         {
