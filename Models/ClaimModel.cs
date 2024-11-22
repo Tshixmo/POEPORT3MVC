@@ -19,12 +19,19 @@ namespace ClaimSystemMVC.Models
         [Range(0.01, double.MaxValue, ErrorMessage = "Hourly rate must be greater than zero.")]
         public decimal HourlyRate { get; set; }        
         public string? Status { get; set; }
-        public string? SupportingDocumentPath { get; set; }
+        public SupportingDocument? SupportingDocumentPath { get; set; }
         public string? AdditionalNotes { get; set; }
 
         public string? RejectionReason { get; set; }
         public DateTime SubmissionDate { get; set; }
         public DateTime? ApprovedDate { get; set; }
     }
+}
+
+
+public class SupportingDocument
+{
+    public string? FilePath { get; set; }
+    public byte[]? Content { get; set; } // You can also store the document content as byte array
 }
 

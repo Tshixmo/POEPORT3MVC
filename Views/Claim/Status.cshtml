@@ -1,3 +1,4 @@
+@using Microsoft.IdentityModel.Tokens
 @model IEnumerable<ClaimSystemMVC.Models.ClaimModel>
 
 <h2>Your Claims Status</h2>
@@ -10,6 +11,7 @@
             <th>Status</th>
             <th>Submission Date</th>
             <th>Document</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -23,14 +25,14 @@
                     <td>@claim.Status</td>
                     <td>@claim.SubmissionDate.ToString("g")</td>
                     <td>
-                        @if (!string.IsNullOrEmpty(claim.SupportingDocumentPath))
-                        {
-                            <a href="@Url.Action("DownloadDocument", "Claim", new { id = claim.ClaimId })">Download</a>
-                        }
-                        else
-                        {
-                            <span>No document available</span>
-                        }
+                        @if (claim.SupportingDocumentPath != null && !string.IsNullOrEmpty(claim.SupportingDocumentPath.FilePath))
+{
+    <a href="@Url.Action("DownloadDocument", "Claim", new { id = claim.ClaimId })">Download</a>
+}
+else
+{
+    <span>No document available</span>
+}
                     </td>
                     <td>
                         <!-- "View" button for each claim -->
@@ -42,7 +44,7 @@
         else
         {
             <tr>
-                <td colspan="4">No claims submitted.</td>
+                <td colspan="6">No claims submitted. <a href="@Url.Action("Create", "Claim")">Create a claim</a></td>
             </tr>
         }
     </tbody>

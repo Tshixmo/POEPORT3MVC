@@ -53,9 +53,8 @@ namespace ClaimSystemMVC.Controllers
                     claim.Status = "Pending";
                 }
 
-                // Assign default values (no lecturer identity)
                 claim.ClaimId = ClaimStorage.Claims.Count + 1;
-                claim.LecturerId = "UnknownLecturer"; // Lecturer identity removed, set a default value
+                claim.LecturerId = "UnknownLecturer";
                 claim.SubmissionDate = DateTime.Now;
 
                 // Store the claim in memory
@@ -90,7 +89,6 @@ namespace ClaimSystemMVC.Controllers
         // GET: Claim/Status (Lecturer's claim status page)
         public IActionResult Status()
         {
-            // No login, using a default or fixed lecturer ID (remove logic for logged-in lecturer)
             var claims = ClaimStorage.Claims.ToList();
             return View(claims);
         }
@@ -157,6 +155,42 @@ namespace ClaimSystemMVC.Controllers
 
             TempData["ErrorMessage"] = $"Claim {id} rejected.";
             return RedirectToAction("Pending");
+        }
+
+        // GET: Claim/DownloadDocument/{id} (Download claim document)
+        [HttpGet]
+        public IActionResult DownloadDocument(int id)
+        {
+            var claim = ClaimStorage.Claims.FirstOrDefault(c => c.ClaimId == id);
+
+            if (claim == null || claim.SupportingDocumentPath == null || string.IsNullOrEmpty(claim.SupportingDocumentPath.FilePath))
+            {
+                return NotFound();
+            }
+
+            // Assuming the document is a file path
+            var filePath = claim.SupportingDocumentPath.FilePath;
+
+            // Make sure the file exists
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound();
+            }
+
+            var fileExtension = Path.GetExtension(filePath).ToLower();
+            var mimeType = fileExtension switch
+            {
+                ".pdf" => "application/pdf",
+                ".docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                ".doc" => "application/msword",
+                ".jpg" => "image/jpeg",
+                ".png" => "image/png",
+                _ => "application/octet-stream", // Default to binary stream if unknown type
+            };
+
+            var fileBytes = System.IO.File.ReadAllBytes(filePath);
+            return File(fileBytes, mimeType);
+
         }
     }
 }

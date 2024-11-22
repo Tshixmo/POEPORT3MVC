@@ -22,12 +22,18 @@
         }
 
         @if (!string.IsNullOrEmpty(Model.SupportingDocumentPath))
+        //Check if document exists
+
         {
-            <p><strong>Supporting Document:</strong></p>
-            <a href="@Model.SupportingDocumentPath" target="_blank">View Document</a>
+            <form method="get" action="@Url.Action("DownloadDocument", "Claim", new { id = Model.ClaimId })">
+                <button type="submit" class="btn btn-primary">Download Document</button>
+            </form>
         }
-
-
+        else
+        {
+            <p>No document attached to this claim.</p>
+        }
+        
         <a class="btn btn-secondary" asp-action="Status">Back to Claims</a>
     </div>
 </div>
